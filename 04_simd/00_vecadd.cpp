@@ -8,10 +8,10 @@ int main() {
     b[i] = i * 0.1;
     c[i] = 0;
   }
-  //asm volatile ("# begin loop");
+  asm volatile ("# begin loop");
   for(int i=0; i<N; i++)
     c[i] = a[i] + b[i];
-  //asm volatile ("# end loop");
+  asm volatile ("# end loop");
   for(int i=0; i<N; i++)
     printf("%d %g\n",i,c[i]);
 }
