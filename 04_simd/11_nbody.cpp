@@ -28,14 +28,12 @@ int main() {
     __m512 rvec = _mm512_rsqrt14_ps(_mm512_add_ps(rx_2vec, ry_2vec));
     __m512 r_3vec = _mm512_mul_ps(_mm512_mul_ps(rvec, rvec), rvec);
 
-    __m512 dfxvec = _mm512_mul_ps(rxvec, _mm512_div_ps(mvec, r_3vec));
-    __m512 dfyvec = _mm512_mul_ps(ryvec, _mm512_div_ps(mvec, r_3vec));
-    
-    __m512 fxvec = _mm512_setzero_ps();
-    __m512 fyvec = _mm512_setzero_ps();
+    __m512 dfxvec = _mm512_mul_ps(rxvec, _mm512_mul_ps(mvec, r_3vec));
+    __m512 dfyvec = _mm512_mul_ps(ryvec, _mm512_mul_ps(mvec, r_3vec));
 
-    fxvec = _mm512_mask_blend_ps(mask, fxvec, _mm512_sub_ps(fxvec, dfxvec));
-    fyvec = _mm512_mask_blend_ps(mask, fyvec, _mm512_sub_ps(fyvec, dfyvec));
+    __m512 zero = _mm512_setzero_ps();
+    __m512 fxvec = _mm512_mask_blend_ps(mask, zero, _mm512_sub_ps(zero, dfxvec));
+    __m512 fyvec = _mm512_mask_blend_ps(mask, zero, _mm512_sub_ps(zero, dfyvec));
 
     fx[i] = _mm512_reduce_add_ps(fxvec);
     fy[i] = _mm512_reduce_add_ps(fyvec);
