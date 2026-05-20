@@ -6,11 +6,11 @@ int main() {
   {
 #pragma acc loop
     for(int i=0; i<2; i++) {
-      printf("%d: %d\n",__pgi_vectoridx(),i);
+      printf("%d: %d\n",__pgi_gangidx(),i);
     }
 #pragma acc loop
     for(int i=0; i<2; i++) {
-      printf("%d: %d\n",__pgi_vectoridx(),i);
+      printf("%d: %d\n",__pgi_gangidx(),i);
     }
   }
 }
